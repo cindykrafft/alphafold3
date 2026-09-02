@@ -204,7 +204,7 @@ def select_model_files(
       (r'(?P<model_name>.*)\.[0-9]+\.bin\.zst$', True),
       (r'(?P<model_name>.*)\.bin\.zst\.[0-9]+$', True),
       (r'(?P<model_name>.*)\.[0-9]+\.bin$', False),
-      (r'(?P<model_name>.*)\.bin]\.[0-9]+$', False),
+      (r'(?P<model_name>.*)\.bin\.[0-9]+$', False),
       (r'(?P<model_name>.*)\.bin\.zst$', True),
       (r'(?P<model_name>.*)\.bin$', False),
   ):
