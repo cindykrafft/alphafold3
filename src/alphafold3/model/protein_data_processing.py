@@ -66,11 +66,13 @@ def _make_restype_rigidgroup_dense_atom_idx() -> np.ndarray:
         base_atom_indices[restype, chi_idx + 4, :] = [
             dense_atom_names.index(atom) for atom in atom_names[1:]
         ]
-  dense_atom_names = atom_types.DENSE_ATOM['A']
-  nucleic_rigid_atoms = [
-      dense_atom_names.index(atom) for atom in ["C1'", "C3'", "C4'"]
-  ]
-  for nanum, _ in enumerate(residue_names.NUCLEIC_TYPES):
+  for nanum, resname in enumerate(residue_names.NUCLEIC_TYPES):
+    # Resolve per residue type: DNA rows have no O2', so the dense indices from
+    # C1' onwards differ from the RNA ones.
+    dense_atom_names = atom_types.DENSE_ATOM[resname]
+    nucleic_rigid_atoms = [
+        dense_atom_names.index(atom) for atom in ["C1'", "C3'", "C4'"]
+    ]
     # 0: backbone frame only.
     # we have aa + unk + gap, so we want to start after those
     resnum = nanum + NUM_AA_WITH_UNK_AND_GAP
