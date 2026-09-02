@@ -1292,12 +1292,6 @@ class LigandLigandBondInfo:
           keep_mask.append(False)
       keep_mask = np.array(keep_mask).astype(bool)
       bond_layout = bond_layout[keep_mask]
-      # Remove any bonds to Hydrogen atoms.
-      bond_layout = bond_layout[
-          ~np.char.startswith(bond_layout.atom_name.astype(str), 'H').any(
-              axis=1
-          )
-      ]
       atom_names = bond_layout.atom_name
       adjusted_bond_layout = atom_layout.AtomLayout(
           atom_name=atom_names,
