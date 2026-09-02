@@ -353,12 +353,12 @@ class Hit:
     ):
       return False
 
-    # Exclude hits with unresolved residues.
-    if not self.is_valid:
-      return False
-
-    # Exclude hits with too few alignments.
     try:
+      # Exclude hits with unresolved residues.
+      if not self.is_valid:
+        return False
+
+      # Exclude hits with too few alignments.
       if min_align_ratio is not None and self.align_ratio <= min_align_ratio:
         return False
     except template_realign.AlignmentError as e:
