@@ -1628,7 +1628,9 @@ def get_tables(
   atom_res_key = np.repeat(atom_res_key_per_res, repeats=res_lengths)
 
   if fix_mse_residues:
-    met_residues_mask = (residues.name == 'MET')[atom_res_key]
+    met_residues_mask = (
+        residues.apply_array_to_column('name', atom_res_key) == 'MET'
+    )
     unfixed_mse_selenium_mask = met_residues_mask & (label_atom_ids == 'SE')
     label_atom_ids[unfixed_mse_selenium_mask] = 'SD'
     type_symbols[unfixed_mse_selenium_mask] = 'S'
