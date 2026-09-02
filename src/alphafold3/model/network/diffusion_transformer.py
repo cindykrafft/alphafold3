@@ -285,11 +285,9 @@ def cross_attention(
   assert len(mask_q.shape) == len(x_q.shape) - 1, f'{mask_q.shape}, {x_q.shape}'
   assert len(mask_k.shape) == len(x_k.shape) - 1, f'{mask_k.shape}, {x_k.shape}'
   # bias: ... x heads (1) x query x key
-  bias = (
-      1e9
-      * (mask_q - 1.0)[..., None, :, None]
-      * (mask_k - 1.0)[..., None, None, :]
-  )
+  bias = (1e9 * (mask_q - 1.0))[..., None, :, None] + (
+      1e9 * (mask_k - 1.0)
+  )[..., None, None, :]
 
   x_q = adaptive_layernorm(x_q, single_cond_q, name=f'{name}q')
   x_k = adaptive_layernorm(x_k, single_cond_k, name=f'{name}k')
