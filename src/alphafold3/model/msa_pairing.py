@@ -134,7 +134,10 @@ def create_paired_features(
     row_indices = np.arange(len(species_ids))
     # The grouping np.split code requires that the input is already clustered
     # by species id.
-    sort_idxs = species_ids.argsort()
+    # Stable, so that rows stay in their original MSA order within a species:
+    # _align_species pairs and crops row i of one chain against row i of the
+    # next, and documents that ordering. a3m rows are ordered best hit first.
+    sort_idxs = species_ids.argsort(kind='stable')
     species_ids = species_ids[sort_idxs]
     row_indices = row_indices[sort_idxs]
 
