@@ -1527,7 +1527,9 @@ def _get_reference_positions_from_ccd_cif(
         for date in ccd_cif['_chem_comp.pdbx_modified_date']
     ]
     max_modified_date = max(modified_dates)
-    if max_modified_date < ref_max_modified_date:
+    if ref_max_modified_date is not None and (
+        max_modified_date < ref_max_modified_date
+    ):
       atom_x = ccd_cif['_chem_comp_atom.model_Cartn_x']
       atom_y = ccd_cif['_chem_comp_atom.model_Cartn_y']
       atom_z = ccd_cif['_chem_comp_atom.model_Cartn_z']
